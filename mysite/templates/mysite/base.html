@@ -1,0 +1,169 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Free music tutorials">
+    <meta name="keywords" content="Music, Learn, Katoli">
+    <meta name="author" content="Muhammadali Kie">
+    {% block style_title %}
+
+    {% endblock %}
+    <link rel="shortcut icon" href="{% static 'mysite/img/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'mysite/fonts/fontawesome-free-5.15.4-web/css/all.min.css' %}">
+</head>
+
+<body>
+{% block allbody %}
+
+    <!-- start of header-->
+    <header>
+        <div class="social">
+
+            <nav class="social-icons">
+
+                <ul class="social-menu">
+                    <li><a href="https://twitter.com/KieAli"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://www.instagram.com/muhammadalikie/"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://t.me/muhammadalikie"><i class="fab fa-telegram"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="container">
+
+
+            <div class="navigation">
+
+                <div class="logo"></div>
+
+                <label class="show-menu" for="show-menu">
+                    <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+                </label>
+
+                <nav class="navbar">
+
+                    <input type="checkbox" id="show-menu">
+
+                    <ul class="main-menu">
+                        <li><a href="{% url 'main' %}">صفحه اصلی</a></li>
+                        <li><a href="{% url 'register' %}">ثبت نام</a></li>
+
+                        {% if user.is_authenticated %}
+                         <li><a href="{% url 'home' %}">مدیریت محتوا</a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}">ورود</a></li>
+                        {% endif %}
+
+{#                        <li><a href="{% url 'article' %}">اخبار</a></li>#}
+
+                    </ul>
+                </nav>
+            </div>
+            {% block site_title %}
+
+
+
+
+            {% endblock %}
+
+        </div>
+
+    </header>
+
+    {% block slider %}
+
+
+    {% endblock %}
+    <!-- end of category-->
+
+
+    <!-- start of Slideshow -->
+    {#        <div class="slideshow-container">#}
+    {##}
+    {#            <div class="mySlides fade">#}
+    {#                <img src="{% static 'mysite/img/guitar3.jpg' %}" alt="picture">#}
+    {#                <a href="{% url 'detail' %}" class="slide-text">آموزش گیتار</a>#}
+    {#            </div>#}
+    {##}
+    {#            <div class="mySlides fade">#}
+    {#                <img src="{% static 'mysite/img/violin3.jpg' %}" alt="picture">#}
+    {#                <a href="{% url 'detail' %}" class="slide-text">آموزش ویالن</a>#}
+    {#            </div>#}
+    {##}
+    {#            <div class="mySlides fade">#}
+    {#                <img src="{% static 'mysite/img/piano3.jpg' %}" alt="picture">#}
+    {#                <a href="{% url 'detail' %}" class="slide-text">آموزش پیانو</a>#}
+    {#            </div>#}
+    {##}
+    {#        </div>#}
+    <!-- end of Slideshow -->
+
+
+    <!-- start of main-content-->
+    {% block body %}
+
+    {% endblock %}
+    <!-- end of main-content-->
+
+    <!-- start of search box -->
+
+    {% block search %}
+
+
+        {% endblock %}
+
+    <!-- end of search box -->
+
+    <!-- start of footerr -->
+    <footer>
+
+        <div class="container footer-box">
+
+                    <span class="footer-social">
+                            <a href="https://twitter.com/KieAli"><i class="fab fa-twitter fa-2x"></i></a>
+                            <a href="https://www.instagram.com/muhammadalikie/"><i
+                                    class="fab fa-instagram fa-2x"></i></a>
+                            <a href="https://t.me/muhammadalikie"><i class="fab fa-telegram fa-2x"></i></a>
+                            <a href="https://github.com/muhammadalikie"><i class="fab fa-github fa-2x"></i></a>
+                            <a href="mailto:muhammadalikie@gmail.com"><i class="fab fa-google fa-2x"
+                                                                         aria-hidden="true"></i></a>
+
+
+                    </span>
+            <p>
+                لورم ایپسوم یا طرح‌نما (به انگلیسی: Lorem ipsum) به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و
+                طراحی
+                گرافیک گفته می‌شود. طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی برای پر کردن صفحه و ارایه اولیه
+                شکل
+                ظاهری و کلی طرح سفارش گرفته شده استفاده می نماید، تا از نظر گرافیکی نشانگر
+            </p>
+
+
+        </div>
+
+        <div class="copy-right">
+            <span>تمامی حقوق این سایت برای منه</span>
+        </div>
+
+
+    </footer>
+    <!-- end of footer -->
+
+
+    <script src="{% static 'mysite/js/form.js' %}"></script>
+
+{% endblock %}
+</body>
+</html>
+
+
+
+
+
+
+
+
+        
+

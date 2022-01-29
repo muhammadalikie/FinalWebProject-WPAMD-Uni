@@ -1,0 +1,65 @@
+{% extends 'mysite/base.html' %}
+{% load static %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+{% block style_title %}
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="{% static 'mysite/css/sign-log-style.css' %}">
+{% endblock %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+
+{% block allbody %}
+    <div class="wrapper">
+
+
+        <input type="checkbox" checked id="show-btn">
+
+        <div class="form-log">
+
+            <h1>ورود به صفحه کاربری</h1>
+
+            <form method="post" action="{% url 'main' %}" name="signin">
+                {% csrf_token %}
+
+                <input type="text" id="username-login" placeholder="نام کاربری"/>
+                <input type="password" id="password-login" placeholder="رمز عبور"/>
+                <button type="submit">ورود</button>
+
+
+                <label for="show-btn" class="show-signform">ثبت نام</label>
+                <a href="{% url 'main' %}" class="show-main">برگشت به صفحه اصلی</a>
+
+            </form>
+
+        </div>
+
+
+        <div class="form-sign">
+
+            <h1>صفحه ثبت نام</h1>
+
+            <form method="post" action="{% url 'main' %}" name="signup">
+                {% csrf_token %}
+
+
+                <input type="text" name="username" id="username-signup" placeholder="نام کاربری"/>
+
+                <input type="email" name="email" id="email-signup" placeholder="ایمیل"/>
+
+                <input type="password" name="password1" id="password1-signup" placeholder="رمز عبور"/>
+
+                <input type="password" name="password2" id="password2-signup" placeholder="تکرار رمز عبور"/>
+
+                <button type="submit">ثبت نام</button>
+
+
+                <label for="show-btn" class="show-signform">ورود</label>
+                <a href="{% url 'main' %}" class="show-main">برگشت به صفحه اصلی</a>
+
+            </form>
+
+        </div>
+
+    </div>
+{% endblock %}

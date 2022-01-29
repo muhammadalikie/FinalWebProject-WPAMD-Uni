@@ -1,0 +1,32 @@
+{% extends 'management/base.html' %}
+
+{% block title %}
+    <title>حذف {{ comment.post.title }}</title>
+
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1 class="alert alert-primary">نام:  {{ comment.name }}</h1>
+        <h2 class="alert alert-info">ایمیل:  {{ comment.email }}</h2>
+        <h3 class="alert alert-secondary">نظر برای پست:  {{ comment.post.title }}</h3>
+        <h4 class="alert alert-dark">متن :
+        <p>{{ comment.text }}</p>
+        </h4>
+
+        <br><br>
+
+
+        <form method="POST">
+            {% csrf_token %}
+            <strong class="alert alert-warning"> آیا مطمئن هستید؟</strong><br>
+            <br>
+            <input type="submit" value="بله" class="btn btn-success">
+            <a href="{% url 'comments' %}" class="btn btn-danger">خیر</a>
+        </form>
+    {% else %}
+        <h1>خطا رخداده است!</h1>
+        <h3>لطفا دوباره وارد سایت شوید</h3>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'management/base.html' %}
+
+{% block title %}
+    <title>افزودن مطلب</title>
+
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+
+        <h1 class="alert alert-primary">افزودن مطلب</h1>
+        <br><br>
+
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label  class="alert alert-info"  for="id_title">عنوان : </label>
+            <br>
+            {{ form.title }}
+            <br>
+            <br>
+            <hr>
+
+
+{#            <label  class="alert alert-info"  for="id_title">نویسنده : </label>#}
+{#            <br>#}
+{#            {{ form.author }}#}
+{#            <br>#}
+{#            <br>#}
+{#            <hr>#}
+
+            <label class="alert alert-info"  for="id_title">تصویر : </label>
+            <br>
+            {{ form.image }}
+            <br>
+            <br>
+            <hr>
+
+            <label class="alert alert-info"  for="id_title">متن پیش نمایش : </label>
+            <br>
+            {{ form.sumText }}
+            <br>
+            <br>
+            <hr>
+
+            <label  class="alert alert-info" for="id_title">متن اصلی : </label>
+            <br>
+            {{ form.text }}
+            <br>
+            <br>
+            <hr>
+
+            <label class="alert alert-info"  for="id_title">پروموت : </label>
+            {{ form.promote }}
+            <br>
+            {{ form.media }}
+            <input type="submit" value="ذخیره" class="btn btn-primary">
+            <br><br>
+        </form>
+    {% else %}
+        <h1>Error!</h1>
+    {% endif %}
+
+{% endblock %}

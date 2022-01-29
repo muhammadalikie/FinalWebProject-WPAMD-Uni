@@ -1,0 +1,307 @@
+{% extends 'mysite/base.html' %}
+{% load static %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+
+{% block style_title %}
+    <title>Article Page</title>
+    <link rel="stylesheet" href="{% static 'mysite/css/article-style.css' %}">
+{% endblock %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+
+{% block site_title %}
+    <div class="site-title">
+        <h1>Slince</h1>
+        <h2>مرجع آموزش موسیقی</h2>
+    </div>
+
+{% endblock %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+
+{% block body %}
+    <div class="container">
+
+        <section class="main-content">
+
+            <div class="title-content">
+                <h2>مطالب سایت</h2>
+            </div>
+
+            {% for post in page_obj.object_list %}
+
+                <article class="main-post">
+
+                    <img src="{{ post.image.url }}" alt="post">
+
+                    <div class="post-texts">
+                        <h2>{{ post.title }}</h2>
+
+                        <div class="post-detail">
+                            <i class="fa fa-pen">&#160:&#160</i>
+                            <span for="cal">&#160&#160&#160 {{ post.published_date }} &#160&#160&#160</span>
+                            <i class="fa fa-calendar">&#160:&#160</i>
+                            <span>&#160&#160&#160 {{ post.views }} &#160&#160&#160</span>
+                            <i class="fas fa-eye">&#160:&#160</i>
+                            <span>&#160&#160&#160 {{ post.author }} &#160&#160&#160</span>
+                        </div>
+
+                        <p>
+
+                            {{ post.snippet }}
+
+                        </p>
+
+                        <a href="{% url 'detail' post.pk %}">ادامه مطلب</a>
+                    </div>
+
+                </article>
+
+
+                {##}
+                {#            <article class="main-post">#}
+                {##}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {##}
+                {#                <div class="post-texts">#}
+                {#                    <h2>کتولی جدید</h2>#}
+                {##}
+                {#                    <div class="post-detail">#}
+                {#                        <i class="fa fa-calendar">:</i>#}
+                {#                        <span for="cal">1400/9/9</span>#}
+                {#                        <i class="fa fa-pen">:</i>#}
+                {#                        <span>عباس بوعذار</span>#}
+                {#                    </div>#}
+                {##}
+                {#                    <p>#}
+                {#                        لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده#}
+                {#                        می نماید، تا از نظر گرافیکی نشانگر#}
+                {#                        لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده#}
+                {#                        می نماید، تا از نظر گرافیکی نشانگر#}
+                {#                        لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده#}
+                {#                        می نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                    </p>#}
+                {##}
+                {#                    <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#                </div>#}
+                {##}
+                {#            </article>#}
+                {##}
+                {#            <article class="main-post">#}
+                {##}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {##}
+                {#                <div class="post-texts">#}
+                {#                    <h2>کتولی جدید</h2>#}
+                {##}
+                {#                    <div class="post-detail">#}
+                {#                        <i class="fa fa-calendar">:</i>#}
+                {#                        <span for="cal">1400/9/9</span>#}
+                {#                        <i class="fa fa-pen">:</i>#}
+                {#                        <span>عباس بوعذار</span>#}
+                {#                    </div>#}
+                {##}
+                {#                    <p>#}
+                {#                        لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده#}
+                {#                        می نماید، تا از نظر گرافیکی نشانگر#}
+                {#                        لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده#}
+                {#                        می نماید، تا از نظر گرافیکی نشانگر#}
+                {#                        لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده#}
+                {#                        می نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                    </p>#}
+                {##}
+                {#                    <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#                </div>#}
+                {##}
+                {#            </article>#}
+
+            {% endfor %}
+
+            <div class="page_setting">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}{% if result %}&mosted={{ result }}{% endif %}
+                     {% if date_start %}&date_start={{ date_start }}{% endif %}{% if date_end %}&date_end={{ date_end }}{% endif %}" class="page_arrow"><i
+                            class="fas fa-arrow-right"></i></a>
+                {% endif %}
+                <span class="page_number">{{ page_obj.number }}</span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if result %}&mosted={{ result }}{% endif %}
+                    {% if date_start %}&date_start={{ date_start }}{% endif %}{% if date_end %}&date_end={{ date_end }}{% endif %}" class="page_arrow"><i class="fas fa-arrow-left"></i></a>
+                {% endif %}
+            </div>
+
+
+        </section>
+
+
+        <aside class="aside-content">
+
+            <div class="aside-title">
+                <h2>فیلترها</h2>
+            </div>
+
+            <form class="aside-filter" method="GET">
+                {#                                {% csrf_token %}#}
+
+                <select name="mosted" class="optionfilter">
+
+                    <option value="none">جستجو بر اساس...</option>
+                    <option value="view_mosted">بر اساس بیشترین بازدید</option>
+                    <option value="view_least">بر اساس کمترین بازدید</option>
+                    <option value="comment_order">بر اساس بیشترین کامنت</option>
+                    <option value="post_newest">بر اساس جدید ترین مطلب</option>
+                    <option value="post_oldest">بر اساس قدیمی ترین مطلب</option>
+
+
+                </select>
+
+                <label for="datefrom">از تاریخ: </label>
+                <input type="date" name="date_start" id="datefrom">
+                <label for="dateto">تا قبل از: </label>
+                <input type="date" name="date_end" id="dateto">
+
+                <input type="submit" value="جستجو">
+            </form>
+
+{#            <form class="aside-filter datefilter" method="GET">#}
+{##}
+{#                #}
+{##}
+{#                <input type="submit" value="جستجو">#}
+{#            </form>#}
+
+
+            {#            <form class="aside-filter" method="post">#}
+            {#                {% csrf_token %}#}
+            {##}
+            {#                <br>#}
+            {#                <input type="date" name="date_start">#}
+            {#                <br>#}
+            {##}
+            {#                <input type="date" name="date_end">#}
+            {##}
+            {#                <input type="submit">#}
+            {#            </form>#}
+
+
+            <div class="aside-title">
+                <h2>محبوبترین مطالب سایت</h2>
+            </div>
+
+            {% for aside_p in aside_populars %}
+                <article class="aside-post">
+                    <img src="{{ aside_p.image.url }}" alt="{{ aside_p.title }}">
+                    <p>
+                        {{ aside_p.snippet }}
+                    </p>
+                    <a href="{% url 'detail' aside_p.pk %}">ادامه مطلب</a>
+                </article>
+                {##}
+                {#            <article class="aside-post">#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#                <p>#}
+                {#                    لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می#}
+                {#                    نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                </p>#}
+                {#                <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#            </article>#}
+                {##}
+                {#            <article class="aside-post">#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#                <p>#}
+                {#                    لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می#}
+                {#                    نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                </p>#}
+                {#                <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#            </article>#}
+                {##}
+                {#            <article class="aside-post">#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#                <p>#}
+                {#                    لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می#}
+                {#                    نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                </p>#}
+                {#                <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#            </article>#}
+            {% endfor %}
+
+
+
+            <div class="aside-title">
+                <h2>آخرین مطالب سایت</h2>
+            </div>
+
+            {% for aside_l in aside_lasts %}
+                <article class="aside-post">
+                    <img src="{{ aside_l.image.url }}" alt="{{ aside_l.title }}">
+                    <p>
+                        {{ aside_l.snippet }}
+                    </p>
+                    <a href="{% url 'detail' aside_l.pk %}">ادامه مطلب</a>
+                </article>
+                {##}
+                {#            <article class="aside-post">#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#                <p>#}
+                {#                    لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می#}
+                {#                    نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                </p>#}
+                {#                <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#            </article>#}
+                {##}
+                {#            <article class="aside-post">#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#                <p>#}
+                {#                    لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می#}
+                {#                    نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                </p>#}
+                {#                <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#            </article>#}
+                {##}
+                {#            <article class="aside-post">#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#                <p>#}
+                {#                    لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می#}
+                {#                    نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                </p>#}
+                {#                <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#            </article>#}
+            {% endfor %}
+
+
+        </aside>
+
+
+    </div>
+{% endblock %}
+
+
+{% block search %}
+    <div class="search">
+
+        <div class="container">
+
+            <div class="search-box">
+
+                <form method="post" action="{% url 'main' %}">
+                    {% csrf_token %}
+                    <input name="search" type="search" placeholder="جستجو" aria-label="جستجو">
+                </form>
+
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock %}

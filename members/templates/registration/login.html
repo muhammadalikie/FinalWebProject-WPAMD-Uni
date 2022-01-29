@@ -1,0 +1,40 @@
+{% extends 'mysite/base.html' %}
+{% load static %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+{% block style_title %}
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'mysite/css/sign-log-style.css' %}">
+{% endblock %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+
+{% block allbody %}
+    <div class="wrapper">
+
+
+        <div class="form-log">
+
+            <h1>ورود به صفحه کاربری</h1>
+
+            <form method="post">
+                {% csrf_token %}
+                <label for="id_username"> : نام کابری</label>
+                                {{ form.username }}
+                <label for="id_password"> : رمز عبور</label>
+                                {{ form.password }}
+{#                <input type="text" id="username-login" placeholder="نام کاربری" name="username"/>#}
+{#                <input type="password" id="password-login" placeholder="رمز عبور" name="password"/>#}
+
+
+                <button type="submit">ورود</button>
+                <a href="{% url 'register' %}" class="show-signform">ثبت نام</a>
+                <a href="{% url 'main' %}" class="show-main">برگشت به صفحه اصلی</a>
+
+            </form>
+
+        </div>
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'management/base.html' %}
+
+{% block title %}
+    <title>{{ comment.post.title }}</title>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Comment for {{ comment.post.title }}</h1>
+    <small>By: {{ comment.name }}</small> -
+    <small>email: {{ comment.email }}</small> -
+    <small>active: {{ comment.active }}</small>
+    {% if user.is_authenticated %}
+        <small>- <a href="{% url 'edit_post' comment.pk %}">(Edit)</a></small> -
+        <small><a href="{% url 'delete_post' comment.pk %}">(Delete)</a></small> <br>
+    {% endif %}
+    <hr>
+    <small>text:</small><br>
+    {{ comment.text }}
+
+    <br><br>
+    <a href="{% url 'comments' %}" class="btn btn-secondary">Back</a>
+
+{% endblock %}

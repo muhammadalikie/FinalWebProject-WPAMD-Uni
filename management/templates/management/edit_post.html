@@ -1,0 +1,62 @@
+{% extends 'management/base.html' %}
+
+{% block title %}
+    <title>ویرایش {{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1 class="alert alert-primary">ویرایش {{ post.title }}</h1>
+        <br><br>
+
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="id_title" class="alert alert-info">عنوان : </label>
+            <br>
+            {{ form.title }}
+            <br>
+            <hr>
+
+{#            <label for="id_author" class="alert alert-info">نویسنده : </label>#}
+{#            <br>#}
+{#            {{ form.author }}#}
+{#            <br>#}
+{#            <hr>#}
+
+            <label for="id_image" class="alert alert-info">تصویر : </label>
+            <br>
+
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" width="150px" height="150px">
+            <br>
+            <br>
+            {{ form.image }}
+            <br>
+            <hr>
+
+            <label for="id_sumText" class="alert alert-info">متن پیش نمایش : </label>
+            <br>
+            {{ form.sumText }}
+            <br>
+            <hr>
+
+            <label for="id_text" class="alert alert-info">متن اصلی : </label>
+            <br>
+            {{ form.text }}
+            <br>
+            <hr>
+
+            <label for="id_promote" class="alert alert-info" >پروموت : </label>
+            {{ form.promote }}
+            <br>
+            {{ form.media }}
+            <input type="submit" value="ذخیره" class="btn btn-primary">
+            <br><br>
+        </form>
+
+    {% else %}
+        <h1>خطا رخداده است!</h1>
+        <h3>لطفا دوباره وارد سایت شوید</h3>
+    {% endif %}
+
+{% endblock %}

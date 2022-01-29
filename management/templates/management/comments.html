@@ -1,0 +1,35 @@
+{% extends 'management/base.html' %}
+
+{% block title %}
+    <title>مدیریت نظر ها</title>
+{% endblock %}
+
+{% block content %}
+    <h1 class="alert alert-primary">نظر ها</h1>
+
+    <ul style="list-style: none">
+        {% for comment in object_list %}
+            <li class="alert alert-secondary">
+                <span>نویسنده : </span>
+                <span> {{ comment.name }} </span> برای پست : {{ comment.post.title }}
+                <br>
+                <br>
+
+                فعال: {{ comment.active }}
+                <br>
+                <br>
+                {% if user.is_authenticated %}
+                    {% if comment.post.author == user %}
+                        <small><a class="btn btn-dark" href="{% url 'edit_comment' comment.pk %}">(ویرایش)</a></small>
+                        <small><a class="btn btn-dark" href="{% url 'delete_comment' comment.pk %}">(حذف)</a></small>
+                        <br>
+                    {% endif %}
+                {% endif %}
+                <hr>
+            </li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="{% url 'home' %}" class="btn btn-primary">برگشت</a>
+    <br><br>
+{% endblock %}

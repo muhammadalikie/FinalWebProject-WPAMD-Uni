@@ -1,0 +1,57 @@
+{% extends 'management/base.html' %}
+
+{% block title %}
+    <title>افزودن نظر</title>
+
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1 class="alert alert-primary">افزودن نظر</h1>
+        <br><br>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label class="alert alert-info" for="id_title">برای پست : </label>
+            <br>
+            {{ form.post }}
+            <br>
+            <br>
+            <hr>
+
+            <label class="alert alert-info" for="id_title">نام : </label>
+            <br>
+            {{ form.name }}
+            <br>
+            <br>
+            <hr>
+
+            <label class="alert alert-info" for="id_title">ایمیل : </label>
+            <br>
+            {{ form.email }}
+            <br>
+            <br>
+            <hr>
+
+            <label class="alert alert-info" for="id_title">متن : </label>
+            <br>
+            {{ form.text }}
+            <br>
+            <br>
+            <hr>
+
+            <label class="alert alert-info" for="id_title">فعال : </label>
+            {{ form.active }}
+            <br>
+
+            <input type="submit" value="ذخیره" class="btn btn-primary">
+            <br>
+            <br>
+        </form>
+
+    {% else %}
+        <h1>خطا رخداده است!</h1>
+        <h3>لطفا دوباره وارد سایت شوید</h3>
+    {% endif %}
+
+{% endblock %}

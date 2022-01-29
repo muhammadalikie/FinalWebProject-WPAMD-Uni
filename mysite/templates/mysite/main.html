@@ -1,0 +1,172 @@
+{% extends 'mysite/base.html' %}
+{% load static %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+{% block style_title %}
+    <title>Main Page</title>
+    <link rel="stylesheet" href="{% static 'mysite/css/mian-style.css' %}">
+{% endblock %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+
+{% block site_title %}
+    <div class="site-title">
+        <h1>Slince</h1>
+        <h2>برنامه نویسی وب</h2>
+
+            <a href="{% url 'article' %}">صفحه اخبار</a>
+{#            <a href="{% url 'login' %}">مدیریت محتوا</a>#}
+
+
+    </div>
+    <div class="down">
+        <a href="#">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </div>
+{% endblock %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+
+{% block slider %}
+    <!-- start of category-->
+    <section class="category">
+
+        <div class="left-cat">
+
+            {% for slide_l in slides_l %}
+
+
+                <article class="cat">
+                    <img src="{{ slide_l.image.url }}" alt="{{ slide_l.title }}">
+                    <a href="{% url 'detail' slide_l.pk %}">ادامه مطلب</a>
+                    <p>
+                        {{ slide_l.snippet }}
+                    </p>
+                </article>
+
+                {#            <article class="cat">#}
+                {#                <img src="{% static 'mysite/img/piano.jpg' %}" alt="piano">#}
+                {##}
+                {#                <p>#}
+                {#                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم#}
+                {#                    از صنعت چاپ و با استفاده از طراحان گرافیک است.#}
+                {#                </p>#}
+                {##}
+                {#                <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#            </article>#}
+
+            {% endfor %}
+
+        </div>
+
+        {% if slide_r %}
+
+
+            <article class="cat right-cat">
+                <img src="{{ slide_r.image.url }}" alt="{{ slide_r.title }}">
+                <a href="{% url 'detail' slide_r.pk %}">{{ slide_r.title }}</a>
+            </article>
+
+        {% endif %}
+
+    </section>
+{% endblock %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+
+
+{% block body %}
+    <section class="main-content">
+
+
+        <div class="container">
+
+            <div class="title-content">
+                <h2>آخرین مطالب سایت</h2>
+            </div>
+
+
+            {% for post in page_obj.object_list %}
+
+                <article class="cell-content">
+                    <a href="{% url 'detail' post.pk %}">{{ post.title }}</a>
+
+                    <img src="{{ post.image.url }}" alt="post">
+
+                </article>
+
+                {#            <article class="cell-content">#}
+                {#                <a href="{% url 'detail' %}">اکورد کتولی</a>#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#            </article>#}
+                {##}
+                {#            <article class="cell-content">#}
+                {#                <a href="{% url 'detail' %}">اکورد کتولی</a>#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#            </article>#}
+                {##}
+                {#            <article class="cell-content">#}
+                {#                <a href="{% url 'detail' %}">اکورد کتولی</a>#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#            </article>#}
+                {##}
+                {#            <article class="cell-content">#}
+                {#                <a href="{% url 'detail' %}">اکورد کتولی</a>#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#            </article>#}
+                {##}
+                {#            <article class="cell-content">#}
+                {#                <a href="{% url 'detail' %}">اکورد کتولی</a>#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#            </article>#}
+                {##}
+                {#            <article class="cell-content">#}
+                {#                <a href="{% url 'detail' %}">اکورد کتولی</a>#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#            </article>#}
+                {##}
+                {#            <article class="cell-content">#}
+                {#                <a href="{% url 'detail' %}">اکورد کتولی</a>#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#            </article>#}
+
+            {% endfor %}
+
+
+            <div class="page_setting">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="page_arrow"><i
+                            class="fas fa-arrow-right"></i></a>
+                {% endif %}
+                <span class="page_number">{{ page_obj.number }}</span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="page_arrow"><i class="fas fa-arrow-left"></i></a>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </section>
+{% endblock %}
+
+{% block search %}
+    <div class="search">
+
+        <div class="container">
+
+            <div class="search-box">
+
+                <form method="post" action="{% url 'main' %}">
+                    {% csrf_token %}
+                    <input name="search" type="search" placeholder="جستجو" aria-label="جستجو">
+                </form>
+
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock %}

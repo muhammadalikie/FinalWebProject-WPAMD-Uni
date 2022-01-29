@@ -1,0 +1,41 @@
+{% extends 'management/base.html' %}
+
+{% block title %}
+    <title>مدیریت مطالب</title>
+{% endblock %}
+
+{% block content %}
+    <h1 class="alert alert-primary">مطالب سایت</h1>
+    <br>
+    <ul style="list-style: none">
+        {% for post in object_list %}
+
+            <li class="alert alert-dark">
+                <img src="{{ post.image.url }}" alt="post.title" width="100px" height="100px" style="float: right;margin: 0 10px">
+                <span >عنوان مطلب : </span>
+                <small>{{ post.title }}</small><br>
+                <span>نویسنده مطلب : </span>
+                <small>{{ post.author }}</small>
+                <br>
+
+                <span>پیش نمایش متن مطلب : </span>
+                <br>
+                {{ post.snippet }}
+                <br>
+                <br>
+                {% if user.is_authenticated %}
+                    {% if post.author == user %}
+                    <small><a class="btn btn-dark" href="{% url 'edit_post' post.pk %}">(ویرایش)</a></small>
+                    <small><a class="btn btn-dark" href="{% url 'delete_post' post.pk %}">(حذف)</a></small> <br>
+                {% endif %}
+                {% endif %}
+            </li>
+            <hr>
+
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'home' %}" class="btn btn-primary">برگشت</a>
+    <br><br>
+
+{% endblock %}

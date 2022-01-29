@@ -1,0 +1,42 @@
+{% extends 'mysite/base.html' %}
+{% load static %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+{% block style_title %}
+    <title>Register Page</title>
+    <link rel="stylesheet" href="{% static 'mysite/css/sign-log-style.css' %}">
+{% endblock %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+
+{% block allbody %}
+    <div class="wrapper">
+
+
+        <div class="form-sign">
+
+            <h1>صفحه ثبت نام</h1>
+
+            <form method="post">
+                {% csrf_token %}
+                <label for="id_username"> : نام کابری</label>
+                {{ form.username }}
+                <label for="id_password1"> : رمز عبور</label>
+                {{ form.password1 }}
+                <label for="id_password2"> : تکرار رمز عبور</label>
+                {{ form.password2 }}
+                {#                <input type="text" id="username-login" placeholder="نام کاربری"/>#}
+                {#                <input type="password" id="password-login" placeholder="رمز عبور"/>#}
+
+
+                <button type="submit">ثبت نام</button>
+                <a href="{% url 'login' %}" class="show-signform">ورود</a>
+                <a href="{% url 'main' %}" class="show-main">برگشت به صفحه اصلی</a>
+                <p>رمز عبور باید بیش از 8 حرف و دارای کاراکتر و عدد باشد</p>
+            </form>
+
+        </div>
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'management/base.html' %}
+
+{% block title %}
+    <title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+
+    <h1>{{ post.title }}</h1>
+    <small>By: {{ post.author }}</small><br>
+    {% if user.is_authenticated %}
+        <small><a href="{% url 'edit_post' post.pk %}">(Edit)</a></small> -
+        <small><a href="{% url 'delete_post' post.pk %}">(Delete)</a></small> <br>
+    {% endif %}
+    <hr>
+    <br>
+    {{ post.snippet }}
+
+    <br><br>
+    <a href="{% url 'posts' %}" class="btn btn-secondary">Back</a>
+
+{% endblock %}

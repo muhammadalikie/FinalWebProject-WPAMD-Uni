@@ -1,0 +1,293 @@
+{% extends 'mysite/base.html' %}
+{% load static %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+
+{% block style_title %}
+    <title>{{ post_d.title }}</title>
+    <link rel="stylesheet" href="{% static 'mysite/css/detail-style.css' %}">
+{% endblock %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+
+{% block site_title %}
+    <div class="site-title">
+        <h1>Slince</h1>
+        <h2>مرجع آموزش موسیقی</h2>
+    </div>
+
+{% endblock %}
+
+{#////////////////////////////////////////////////////////////////////////////////#}
+
+{% block body %}
+
+
+    <div class="container">
+
+        <section class="main-content">
+
+            <article class="main-post">
+
+                <div class="post-head">
+
+                    <h2>{{ post_d.title }}</h2>
+                    <img src="{{ post_d.image.url }}" alt="{{ post_d.title }}">
+
+                    <p class="Summary-p">
+                        {{ post_d.sumText }}
+                    </p>
+
+                </div>
+
+
+                <p class="main-p">
+                    {{ post_d.text|safe }}
+                </p>
+
+                <div class="post-detail" dir="rtl">
+                    <i class="fa fa-pen">&#160:&#160</i>
+                    <span for="cal">&#160&#160&#160 {{ post_d.published_date }} &#160&#160&#160</span>
+                    <i class="fa fa-calendar">&#160:&#160</i>
+                    <span>&#160&#160&#160 {{ post_d.views }} &#160&#160&#160</span>
+                    <i class="fas fa-eye">&#160:&#160</i>
+                    <span>&#160&#160&#160 {{ post_d.author }} &#160&#160&#160</span>
+                </div>
+
+
+            </article>
+
+
+            <form action="{% url 'comment' post_d.pk %}" method="post" class="comment">
+                {% csrf_token %}
+
+                <label for="name">نام: </label>
+                <input type="text" name="name" id="name">
+                <label for="email">ایمیل: </label>
+                <input type="email" name="email" id="email">
+                <label for="text">متن: </label>
+                <textarea name="text" id="text">  </textarea>
+                <input type="hidden" value="{{ None }}" name="parent_id" id="parent_id">
+                <input type="submit" value="ارسال نظر" name="submit" id="c_submit">
+            </form>
+
+
+            {% for comment in comments %}
+
+
+                {% if comment.parent == None %}
+
+
+
+                    <div class="comment-detail" dir="rtl">
+
+
+                        <i class="fa fa-pen">&#160:&#160</i>
+                        <span for="cal">&#160&#160&#160 {{ comment.time }} &#160&#160&#160</span>
+                        <i class="fa fa-calendar">&#160:&#160</i>
+                        <span>&#160&#160&#160 {{ comment.email }} &#160&#160&#160</span>
+                        <i class="far fa-envelope">&#160:&#160</i>
+                        <span>&#160&#160&#160 {{ comment.name }} &#160&#160&#160</span>
+
+
+                    </div>
+                    <div class="comment-text-box">
+                        <i class="far fa-file-alt">&#160:&#160</i>
+                        <span class="comment-text">&#160&#160&#160 {{ comment.text }} &#160&#160&#160</span>
+                    </div>
+
+                    {% if comment.subComment.count == 0 %}
+                        <form action="{% url 'comment' post_d.pk %}" method="post" class="subcomment_form">
+                            {% csrf_token %}
+                            <i class="fa fa-reply" aria-hidden="true" id="reply"></i>
+                            <label for="name" class="name_label">نام:
+                                <input type="text" name="name" id="name">
+                            </label>
+
+                            <label for="email" class="email_label">ایمیل:
+                                <input type="email" name="email" id="email">
+                            </label>
+
+                            <label for="text" class="text_label">متن:
+                                <textarea name="text" id="text">  </textarea>
+                            </label>
+
+                            <input type="hidden" value="{{ comment.id }}" name="parent_id">
+                            <input type="submit" value="ارسال نظر" name="submit" id="c_submit">
+                        </form>
+                    {% endif %}
+
+
+                    {% for subcomment in comment.subComment.all %}
+
+                        {% if subcomment.active %}
+                            <div class="subcomment-detail" dir="rtl">
+                                <i class="fa fa-reply" aria-hidden="true" id="reply"></i>
+
+                                <i class="fa fa-pen">&#160:&#160</i>
+                                <span for="cal">&#160&#160&#160 {{ subcomment.time }} &#160&#160&#160</span>
+                                <i class="fa fa-calendar">&#160:&#160</i>
+                                <span>&#160&#160&#160 {{ subcomment.email }} &#160&#160&#160</span>
+                                <i class="far fa-envelope">&#160:&#160</i>
+                                <span>&#160&#160&#160 {{ subcomment.name }} &#160&#160&#160</span>
+
+
+                            </div>
+                            <div class="subcomment-text-box">
+                                <i class="far fa-file-alt">&#160:&#160</i>
+                                <span class="comment-text">&#160&#160&#160 {{ subcomment.text }} &#160&#160&#160</span>
+                            </div>
+
+                        {% endif %}
+
+
+
+                    {% endfor %}
+
+
+
+
+                {% endif %}
+
+
+
+
+
+
+            {% endfor %}
+
+        </section>
+
+
+        <aside class="aside-content">
+
+            <div class="aside-title">
+                <h2>محبوبترین مطالب سایت</h2>
+            </div>
+
+            {% for aside_p in aside_populars %}
+                <article class="aside-post">
+                    <img src="{{ aside_p.image.url }}" alt="{{ aside_p.title }}">
+                    <p>
+                        {{ aside_p.snippet }}
+                    </p>
+                    <a href="{% url 'detail' aside_p.pk %}">ادامه مطلب</a>
+                </article>
+                {##}
+                {#            <article class="aside-post">#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#                <p>#}
+                {#                    لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می#}
+                {#                    نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                </p>#}
+                {#                <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#            </article>#}
+                {##}
+                {#            <article class="aside-post">#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#                <p>#}
+                {#                    لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می#}
+                {#                    نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                </p>#}
+                {#                <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#            </article>#}
+                {##}
+                {#            <article class="aside-post">#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#                <p>#}
+                {#                    لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می#}
+                {#                    نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                </p>#}
+                {#                <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#            </article>#}
+            {% endfor %}
+
+
+
+            <div class="aside-title">
+                <h2>آخرین مطالب سایت</h2>
+            </div>
+
+            {% for aside_l in aside_lasts %}
+                <article class="aside-post">
+                    <img src="{{ aside_l.image.url }}" alt="{{ aside_l.title }}">
+                    <p>
+                        {{ aside_l.snippet }}
+                    </p>
+                    <a href="{% url 'detail' aside_l.pk %}">ادامه مطلب</a>
+                </article>
+                {##}
+                {#            <article class="aside-post">#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#                <p>#}
+                {#                    لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می#}
+                {#                    نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                </p>#}
+                {#                <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#            </article>#}
+                {##}
+                {#            <article class="aside-post">#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#                <p>#}
+                {#                    لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می#}
+                {#                    نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                </p>#}
+                {#                <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#            </article>#}
+                {##}
+                {#            <article class="aside-post">#}
+                {#                <img src="{% static 'mysite/img/bg4.jpg' %}" alt="post">#}
+                {#                <p>#}
+                {#                    لورم ایپسوم یا طرح‌نما به متنی آزمایشی و ارایه اولیه شکل ظاهری و کلی طرح سفارش گرفته شده استفاده می#}
+                {#                    نماید، تا از نظر گرافیکی نشانگر#}
+                {##}
+                {#                </p>#}
+                {#                <a href="{% url 'detail' %}">ادامه مطلب</a>#}
+                {#            </article>#}
+            {% endfor %}
+
+
+        </aside>
+
+
+    </div>
+{% endblock %}
+
+
+
+
+{#<div class="comment-detail" dir="rtl">#}
+{##}
+{##}
+{#    <i class="fa fa-pen">&#160:&#160</i>#}
+{#    <span for="cal">&#160&#160&#160 {{ comment.time }} &#160&#160&#160</span>#}
+{#    <i class="fa fa-calendar">&#160:&#160</i>#}
+{#    <span>&#160&#160&#160 {{ comment.email }} &#160&#160&#160</span>#}
+{#    <i class="far fa-envelope">&#160:&#160</i>#}
+{#    <span>&#160&#160&#160 {{ comment.name }} &#160&#160&#160</span>#}
+{##}
+{##}
+{#</div>#}
+{#<div class="comment-text-box">#}
+{#    <i class="far fa-file-alt">&#160:&#160</i>#}
+{#    <span class="comment-text">&#160&#160&#160 {{ comment.text }} &#160&#160&#160</span>#}
+{#</div>#}
+
+
+{#<form action="{% url 'comment' post_d.pk %}" method="post" class="subcomment_form">#}
+{#                                {% csrf_token %}#}
+{##}
+{#                                <label for="name">نام: </label>#}
+{#                                <input type="text" name="name" id="name">#}
+{#                                <label for="email">ایمیل: </label>#}
+{#                                <input type="email" name="email" id="email">#}
+{#                                <label for="text">متن: </label>#}
+{#                                <textarea name="text" id="text">  </textarea>#}
+{#                                <input type="hidden" value="{{ comment.id }}" name="parent_id">#}
+{#                                <input type="submit" value="ارسال نظر" name="submit" id="c_submit">#}
+{#                            </form>#}

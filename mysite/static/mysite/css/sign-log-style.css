@@ -1,0 +1,164 @@
+@font-face {
+    font-family: 'myfont';
+    src: url(../fonts/main/1.eot) format('eot'),
+    url(../fonts/main/2.ttf) format('truetype'),
+    url(../fonts/main/3.woff) format('woff');
+}
+
+@keyframes btn {
+    from {
+        background-color: #FF1E56;
+    }
+    to {
+        background-color: #FFAC41;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    text-align: right;
+
+}
+
+body {
+    background: url('../img/bg5.jpg');
+    font-family: "myfont", serif;
+    display: grid;
+    height: 100vh;
+    margin: 0;
+    place-items: center;
+}
+
+.wrapper {
+    position: relative;
+}
+
+h1 {
+    color: #fff;
+    text-align: center;
+}
+
+.form-sign {
+    position: relative;
+    width: 400px;
+    height: 500px;
+    display: grid;
+    place-content: center;
+    background: rgba(225, 225, 225, 0.1);
+    border-top: 1px solid rgba(225, 225, 225, 0.5);
+    border-left: 1px solid rgba(225, 225, 225, 0.3);
+    border-right: 1px solid rgba(225, 225, 225, 0.3);
+    border-bottom: 1px solid rgba(225, 225, 225, 0.2);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 26px 42px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.form-sign h1{
+    margin-bottom: 10px;
+}
+
+.form-sign p{
+    margin-top: 10px;
+}
+
+.form-log {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: grid;
+    place-content: center;
+    background: rgba(225, 225, 225, 0.1);
+    border-top: 1px solid rgba(225, 225, 225, 0.5);
+    border-left: 1px solid rgba(225, 225, 225, 0.3);
+    border-right: 1px solid rgba(225, 225, 225, 0.3);
+    border-bottom: 1px solid rgba(225, 225, 225, 0.2);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 26px 42px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.form-log h1{
+    margin-bottom: 10px;
+}
+
+input {
+    direction: rtl;
+}
+
+input,
+button {
+    font-size: 16px;
+    display: block;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border: none;
+    width: 100%;
+    margin: 20px auto;
+    padding: 12px 20px;
+    background: rgba(225, 225, 225, 0.1);
+    border-top: 1px solid rgba(225, 225, 225, 0.2);
+    box-shadow: 0 13px 21px rgba(0, 0, 0, 0.1);
+}
+
+input:focus {
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+    background: #FFAC41;
+    color: #fff;
+    transition: 0.5s;
+}
+
+button:hover {
+    background: #FF1E56;
+}
+
+input::placeholder {
+    color: #fff;
+}
+
+.show-signform {
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    animation: btn infinite 0.5s alternate-reverse;
+}
+
+.show-main {
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #FF1E56;
+}
+
+/*#show-btn {*/
+/*    display: none;*/
+/*}*/
+
+/*.wrapper input[type=checkbox]:checked ~ .form-sign {*/
+/*    display: grid;*/
+/*}*/
+
+/*.wrapper input[type=checkbox]:checked ~ .form-log {*/
+/*    display: none;*/
+/*}*/
+
+/*.wrapper input[type=checkbox]:not(:checked) ~ .form-sign {*/
+/*    display: none;*/
+/*}*/
+
+/*.wrapper input[type=checkbox]:not(:checked) ~ .form-log {*/
+/*    display: grid;*/
+/*}*/

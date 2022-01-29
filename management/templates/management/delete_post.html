@@ -1,0 +1,32 @@
+{% extends 'management/base.html' %}
+
+{% block title %}
+    <title>حذف {{ post.title }}</title>
+
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1 class="alert alert-primary">حذف: {{ post.title }}</h1>
+        <h3 class="alert alert-info">
+            متن پیش نمایش پست:
+            <br>
+        <p>{{ post.snippet }}</p>
+        </h3>
+
+        <br>
+
+
+        <form method="POST">
+            {% csrf_token %}
+            <strong class="alert alert-warning"> آیا مطمئن هستید؟</strong><br>
+            <br>
+            <input type="submit" value="بله" class="btn btn-success">
+            <a href="{% url 'posts' %}" class="btn btn-danger">خیر</a>
+        </form>
+    {% else %}
+        <h1>خطا رخداده است!</h1>
+        <h3>لطفا دوباره وارد سایت شوید</h3>
+    {% endif %}
+
+{% endblock %}

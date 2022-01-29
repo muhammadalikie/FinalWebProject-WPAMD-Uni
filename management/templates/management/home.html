@@ -1,0 +1,26 @@
+{% extends 'management/base.html' %}
+
+{% block title %}
+    <title>مدیریت</title>
+{% endblock %}
+
+{% block content %}
+
+
+
+    <a href="{% url 'posts' %}" class="btn btn-primary">
+        <h1>
+            مطالب سایت
+        </h1>
+    </a>
+
+    <br>
+    <br>
+
+    <a href="{% url 'comments' %}" class="btn btn-primary">
+        <h1>
+            نظر ها
+        </h1>
+    </a>
+
+{% endblock %}
